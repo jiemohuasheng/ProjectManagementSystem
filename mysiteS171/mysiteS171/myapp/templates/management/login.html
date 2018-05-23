@@ -1,0 +1,67 @@
+{% extends 'management/base1.html' %}
+
+{% block body_block %}
+    <head>
+        <title>LOGIN</title>
+        <style>
+            label {
+                margin: 10px 20px 30px 400px;
+                border-radius: 50%;
+            }
+
+            #sub {
+                margin: 20px 550px;
+            }
+
+            #login {
+                background: darkgrey;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                border-radius: 20px;
+            }
+            form{
+                margin-top: 50px;
+            }
+            .error {
+                color: red;
+                font-size: larger;
+                {% comment %}margin-bottom: 20px;{% endcomment %}
+                text-align: center;
+{#                {% comment %}border: 2px solid red;{% endcomment %}#}
+                margin-left:-700px;
+                margin-top: 140px;
+            }
+
+        </style>
+    </head>
+    <!----------------Body Section Start---------------------->
+    <section class="contact_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 m-t-50">
+                    <h1 class="underline heading"><b>LOGIN IN</b></h1>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <div class="container">
+        <div class="container1">
+            <div class="container1_1" {% comment %}style="border: 2px solid green"{% endcomment %}>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <label>User Name</label><input type="text" name="username" required><br>
+                    <label>Password</label><input type="password" name="password" required><br>
+                    <input id="sub" type="submit" value="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

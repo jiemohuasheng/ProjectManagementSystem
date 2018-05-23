@@ -1,0 +1,55 @@
+﻿{% extends 'management/base1.html' %}
+
+{% block body_block %}
+    <head>
+        <title>ISSUES LIST</title>
+        <style>
+            #issues {
+                color: hotpink;
+                font-size: large;
+                font-weight: bolder;
+                font-style: italic;
+                font-family: Helvetica, Tahoma, Arial;
+            }
+        </style>
+    </head>
+    <!------------------Body Section Start----------------->
+    <section class="contact_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 m-t-50">
+                    <h1 class="underline heading"><b>ISSUE LIST</b></h1>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <div class="container2">
+
+        <table class="table table-hover">
+        {% if issue_list %}
+            <thead>
+            <tr>
+                <th>Issues Number</th>
+                <th>Project Name</th>
+                <th>Issues Name</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            {% for obj in issue_list %}
+                <tbody class="tbody1">
+                <tr class="">
+                    <td><a href="{% url 'myapp:issues_detail' obj.id %}">{{ obj.id }}</a></td>
+                    <td><a href="{% url 'myapp:issues_detail' obj.id %}">{{ obj.project }}</a></td>
+                    <td><a href="{% url 'myapp:issues_detail' obj.id %}">{{ obj.title }}</a></td>
+                    <td>{{ obj.date }}</td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        {% else %}
+            <br><div style="font-size: larger;text-align: center">There are no issues!</div>
+        {% endif %}
+        </table>
+    </div>
+
+{% endblock %}

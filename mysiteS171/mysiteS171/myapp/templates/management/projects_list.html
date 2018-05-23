@@ -1,0 +1,53 @@
+{% extends 'management/base1.html' %}
+
+{% block body_block %}
+    <head>
+        <title>PROJECT LIST</title>
+        <style>
+            #projects {
+                color: hotpink;
+                font-size: large;
+                font-weight: bolder;
+                font-style: italic;
+                font-family: Helvetica, Tahoma, Arial;
+            }
+
+        </style>
+    </head>
+    <!----------------Body Section Start---------------------->
+    <section class="contact_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 m-t-50">
+                    <h1 class="underline heading"><b>THE PROJECT YOU ARE IN</b><br>(ONLY MEMBERS CAN SEE)</h1>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <div class="container">
+        <div class="container1">
+            <ul>
+            {% if Project_list %}
+                {% for projects in Project_list %}
+                    <div class="container2" color='red'>
+                        <div style=" width: 400px; margin-left: 240px;">
+                            <li><b>Project Number: </b>{{ projects.project_no }}  </li>
+                            <li><b>Project Name: </b>{{ projects.name }}</li>
+                            <li><b>Start date: </b>{{ projects.start_date }}</li>
+                            <li><b>End date: </b>{{ projects.end_date }}</li>
+                            <li><b>Phase: </b>{{ projects.phase }}</li>
+                            <li><b>Description: </b>{{ projects.description }}</li>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <br><div style="font-size: larger;text-align: center">You do not have any projects yet!</div>
+            {% endif %}
+            </ul>
+        </div>
+
+    </div>
+
+    <!----------------Body Section End---------------------->
+{% endblock %}

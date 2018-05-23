@@ -1,0 +1,76 @@
+{% extends 'management/base1.html' %}
+
+{% block body_block %}
+    <head>
+        <title>ISSUE DETAIL</title>
+        <style>
+            #issues {
+                color: hotpink;
+                font-size: large;
+                font-weight: bolder;
+                font-style: italic;
+                font-family: Helvetica, Tahoma, Arial;
+            }
+        </style>
+    </head>
+    <!----------------Body Section Start---------------------->
+    <section class="contact_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 m-t-50">
+                    <h1 class="underline heading"><b>ISSUE DETAIL</b></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="container1">
+            <ul>
+                <div class="container2" color='red'>
+                    <h1 align="center">ISSUE</h1><br>
+                    <div style=" width: 400px; margin-left: 240px;">
+                        <li><b>Project ID: </b>{{ issues.project_id }}  </li>
+                        <li><b>Project Name: </b>{{ project.name }}  </li>
+                        <li><b>Issue Title: </b>{{ issues.title }}</li>
+                        <li><b>Description: </b>{{ issues.description }}</li>
+                        <li><b>Author: </b>{{ author.username }}</li>
+                        <li><b>Date: </b>{{ issues.date }}</li>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="tp-header" id="tp-header"></div>
+    <div class="container">
+        <div class="container1">
+            <h1 align="center">ANSWER FROM OTHERS</h1><br>
+            <ul>
+                {% for an in answer %}
+                    <div class="container2" color='red'>
+
+                        <div style=" width: 400px; margin-left: 240px;">
+                            <li><b>Replier:</b>{{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }})</li>
+                            <li><b>Answer Description: </b>{{ an.answer }}  </li>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="tp-header" id="tp-header"></div>
+    <div class="container">
+        <div class="container1">
+            <div class="container2">
+                <h1 align="center">ANSWER HERE</h1><br>
+                <div style=" width: 400px; margin-left: 225px;">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="submit" style="margin: 20px 110px"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------------Body Section End---------------------->
+{% endblock %}

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/myapp/images/favicon-32x32.png">
+    <!-----------------Global css------------------>
+    <link rel="stylesheet" href="../../static/myapp/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/myapp/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/myapp/css/responsive.css">
+    <!-------------------custom css-------------------->
+    <link rel="stylesheet" href="../../static/myapp/css/custom.css">
+
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 30px 15px;
+            color: black;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            font-size: smaller;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 20px 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .messages {
+            color: red;
+            font-size: larger;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-left: -100px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+<!--------------------Preloader-------------->
+<div class="preloader" style="position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:100000;
+    backface-visibility: hidden;
+    background: #ffffff;">
+    <div style=" width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-position: center;
+    margin:-25px 0 0 -25px;">
+        <img src="../../static/myapp/images/loader.gif" alt="loading...">
+    </div>
+</div>
+<!------------------Preloader end------------------->
+<div id="grad">
+    <div class="tp-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-7 col-md-6">
+                    <a href="https://www.facebook.com/UWindsor/?ref=br_rs"> <i class="fa fa-facebook"
+                                                                               aria-hidden="true"></i></a>
+                    <a href="https://twitter.com/UWindsor?lang=en"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/school/14123/"><i class="fa fa-linkedin"
+                                                                        aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/uwindsor/"> <i class="fa fa-instagram"
+                                                                      aria-hidden="true"></i></a>
+                </div>
+
+                <div class="col-xs-5 col-md-6 text-right">
+                    {% if  request.user.is_authenticated %}
+                        <span class="hbar1"><a href="/myapp/logout/">LOG OUT</a></span>
+                    {% else %}
+                        <span class="hbar1" id="login"><a href="/myapp/login/">LOG IN</a></span>
+                        <span class="hbar1"><a href="/myapp/login/">|</a></span>
+                        <span class="hbar1" id="register"><a href="/myapp/register/">REGISTER</a></span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+
+                    {% if request.user.is_active %}
+                        <a class="navbar-brand" href="/myapp/index">
+
+                        <img src="../../static/myapp/images/03.png" class="img-responsive" alt="company-logo"
+                             width="170px"
+                             height="120px">
+                    {% else %}
+                        <a class="navbar-brand" href="/myapp/home">
+                        <img src="../../static/myapp/images/03.png" class="img-responsive" alt="company-logo"
+                             width="170px"
+                             height="120px">
+                    {% endif %}
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" id="myMegamenu">
+                    <ul class="nav navbar-nav">
+                        {% if request.user.is_active %}
+                            <li class="list2">
+                                <a href="/myapp/index/" class="hvr-underline-from-center" id="index">HOME</a>
+                            </li>
+                        {% comment %}{% else %}
+                            <li class="list2">
+                                <a href="/myapp/home/" class="hvr-underline-from-center" id="home">HOME</a>
+                            </li>{% endcomment %}
+                        {% endif %}
+
+                        {% if  request.user.username == 'mica' %}
+                            <li class="list2 dropdown">
+                                <span id="addannreq">ADD ANN & REQ ▼</span>
+                                <div class="dropdown-content">
+                                    <p><a href="/myapp/addan/">ADD ANNOUNCEMENT</a></p>
+                                    <p><a href="/myapp/addre/">ADD REQUIREMENT</a></p>
+                                </div>
+                            </li>
+                        {% endif %}
+
+                        {% if  request.user.username == 'mica' %}
+                            <li class="list2 dropdown">
+                                <span id="projects">PROJECTS ▼</span>
+                                <div class="dropdown-content">
+                                    <p><a href="/myapp/addprojects/">CREATE A PROJECT</a></p>
+                                    <p><a href="/myapp/projects_list/">PROJECT LIST</a></p>
+                                </div>
+                            </li>
+                        {% elif request.user.is_active %}
+                            <li class="list2">
+                                <a href="/myapp/projects_list/" class="hvr-underline-from-center" id="projects">PROJECT LIST</a>
+                            </li>
+                            {% comment %}{% endif %}
+
+                    {% if  request.user.username != 'mica' %}{% endcomment %}
+                        {% comment %}{% else %}
+                            <li class="list2">
+                                <a href="/myapp/projects_list/" class="hvr-underline-from-center" id="projects">PROJECT
+                                    LIST</a>
+                            </li>{% endcomment %}
+                        {% endif %}
+
+                        {% if request.user.is_active %}
+                            <li class="list2 dropdown">
+                                <span id="issues">ISSUES ▼</span>
+                                <div class="dropdown-content">
+                                    <p><a href="/myapp/addissues/">ADD ISSUE</a></p>
+                                    <p><a href="/myapp/issues_list/">ISSUES LIST</a></p>
+                                </div>
+                            </li>
+                        {% endif %}
+
+                        {% if  request.user.username == 'mica' %}
+                            <li class="list2 dropdown">
+                                <span id="members">MEMBERS ▼</span>
+                                <div class="dropdown-content">
+                                    <p><a href="/myapp/addmembers/">ADD MEMBERS</a></p>
+                                    <p><a href="/myapp/profiles/">MEMBERS INFO</a></p>
+                                </div>
+                            </li>
+                        {% elif request.user.is_active %}
+                            <li class="list2">
+                                <a href="/myapp/profiles/" class="hvr-underline-from-center" id="members">MEMBER INFO</a>
+                            </li>
+                            {% comment %}{% endif %}
+                    {% if  request.user.username != 'mica' %}{% endcomment %}
+                        {% comment %}{% else %}
+                            <li class="list2">
+                                <a href="/myapp/profiles/" class="hvr-underline-from-center" id="members">MEMBERS
+                                    INFO</a>
+                            </li>{% endcomment %}
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+
+    <!----------------Body Section Start---------------------->
+    {% block body_block %}***{% endblock %}
+    <!----------------Body Section End---------------------->
+
+
+    <!--------------Footer Start--------------->
+    <!------------Footer Caret Shape------------>
+    <div class="shape section-top-50"></div>
+    <!------------Footer Caret Shape end------------>
+    <section class="footer_one">
+        <footer>
+            <div class="container">
+                <div class="row section-top-40">
+                    <div class="col-md-3 col-sm-6 section-top-25" id="widerrow">
+                        <h4 class="text-white">Follow Us</h4>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-12" style="margin-top: 30px; margin-left: 22px">
+									<span class="foot_icon">
+                            <a href="https://www.facebook.com/UWindsor/?ref=br_rs"><i
+                                    class="fa fa-facebook section-top-10 footer_social_icons"
+                                    aria-hidden="true"></i></a>
+                            <a href="https://twitter.com/UWindsor?lang=en"><i
+                                    class="fa fa-twitter section-top-10 footer_social_icons"
+                                    aria-hidden="true"></i></a>
+                            <a href="https://www.linkedin.com/school/14123/"><i
+                                    class="fa fa-linkedin section-top-10 footer_social_icons"
+                                    aria-hidden="true"></i></a>
+                            <a href="https://www.instagram.com/uwindsor/"><i
+                                    class="fa fa-instagram section-top-10 footer_social_icons"
+                                    aria-hidden="true"></i></a>
+                        </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3  col-lg-3 col-sm-6 section-top-25">
+                        <div class="row" id="widerrow">
+                            <div class="col-xs-12">
+                                <h4 class="text-white">Find Us</h4>
+                                <hr/>
+                            </div>
+                            <div class="footer_contact">
+                                <div class="col-md-1  col-xs-1">
+                                    <a href="http://www.uwindsor.ca/"><i class="fa fa-caret-right div_hover1"
+                                                                         aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-md-10  col-xs-10" style="margin-bottom: 10px">
+                                    <a href="http://www.uwindsor.ca/" class="div_hover2" >Visit Our Website</a></div>
+                            </div>
+                            <div class="clearfix visible-xs-block visible-sm-block visible-lg-block visible-md-block"></div>
+                            <div class="footer_contact">
+                                <div class="col-md-1  col-xs-1 section-top-10">
+                                    <a href="https://www.google.ca/maps/place/University+of+Windsor/@42.3122583,-83.0683511,15z/data=!4m8!1m2!2m1!1suniversity+of+windsor!3m4!1s0x883b2d77c6ec4bef:0x1a44f1192a4e41ee!8m2!3d42.3043138!4d-83.0660386"><i
+                                            class="fa fa-caret-right div_hover1"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-md-10  col-xs-10 section-top-10">
+                                    <a href="https://www.google.ca/maps/place/University+of+Windsor/@42.3122583,-83.0683511,15z/data=!4m8!1m2!2m1!1suniversity+of+windsor!3m4!1s0x883b2d77c6ec4bef:0x1a44f1192a4e41ee!8m2!3d42.3043138!4d-83.0660386"
+                                       class="div_hover2">Address: 401 Sunset Ave, Windsor, ON N9B 3P4</a></span>
+                                </div>
+                            </div>
+                            <div class="clearfix visible-xs-block visible-sm-block visible-lg-block visible-md-block"></div>
+                            <div class="footer_contact">
+                                <div class="col-md-1  col-xs-1 section-top-10">
+                                    <a href="mailto:zhu143@uwindsor.ca"><i class="fa fa-caret-right div_hover1"
+                                                                           aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-md-10  col-xs-10 section-top-10">
+                                    <a href="mailto:zhu143@uwindsor.ca" class="div_hover2">Email: zhu143@uwindsor.ca</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="clearfix visible-xs-block visible-sm-block visible-lg-block visible-md-block"></div>
+                            <div class="footer_contact">
+                                <div class="col-md-1  col-xs-1 section-top-10">
+                                    <a><i class="fa fa-caret-right div_hover1"
+                                          aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-md-10  col-xs-10 section-top-10">
+                                    <a class="div_hover2">Call: (519) 253-3000</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+    <!-------------------Footer section End------------------>
+    <!------------------Copy rights------------------->
+    <section class="copy-rights">
+
+        <p class="copy-right">Copyright &copy; 2017. All rights reserved.</p>
+
+        <a href="#" id="return-to-top"><img src="../../static/myapp/images/backto.png" alt="image-missing"></a>
+    </section>
+</div>
+<!------------------Copy rights End------------------>
+
+<script src="../../static/myapp/js/jquery.min.js"></script>
+<script src="../../static/myapp/js/bootstrap.min.js"></script>
+
+<!----------------Page Level JS-------------------->
+<script src="../../static/myapp/js/custom.js"></script>
+
+</body>
+
+</html>
+
+

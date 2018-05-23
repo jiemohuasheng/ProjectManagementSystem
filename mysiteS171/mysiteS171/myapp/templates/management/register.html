@@ -1,0 +1,83 @@
+{% extends 'management/base1.html' %}
+
+{% block body_block %}
+    <head>
+        <title>REGISTER</title>
+        <style>
+            label {
+                margin: 10px 20px 30px 400px;
+                border-radius: 50%;
+            }
+
+            #sub {
+                margin: 20px 550px;
+            }
+
+            #register {
+                background: darkgrey;
+                color: white;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                border-radius: 20px;
+            }
+
+            .error {
+                margin-left: -700px;
+                margin-top: 100px;
+                color: red;
+                font-size: larger;
+            }
+
+        </style>
+
+        <script>
+
+        </script>
+    </head>
+    <body>
+    <!----------------Body Section Start---------------------->
+    <section class="contact_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 m-t-50">
+                    <h1 class="underline heading"><b>REGISTER</b></h1>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <div class="container">
+        <div class="container1">
+            <div class="container1_1">
+                <div style="margin-top: 50px">
+                    <form action="" method="post">
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% csrf_token %}
+                        {% comment %}{{ form.as_p }}
+
+                        <input class="input_text" id="sub" type="submit" value="submit">
+                    </div>{% endcomment %}
+
+                        <label>User Name</label><input type="text" name="username" required ><br>
+                        <label>First Name</label><input type="text" name="first_name" required><br>
+                        <label>Last Name</label><input type="text" name="last_name" required><br>
+                        <label>Email Address</label><input type="email" name="email" required><br>
+                        <label>Password</label><input id="password1" type="password" name="password1" required><br>
+                        <label>Password Confirmation</label><input id="password2" type="password" name="password2"
+                                                                   onblur="check()" required><br>
+                        <input id="sub" type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+
+{% endblock %}

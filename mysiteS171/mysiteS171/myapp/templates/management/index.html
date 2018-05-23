@@ -1,0 +1,139 @@
+﻿{% extends 'management/base1.html' %}
+
+{% block body_block %}
+    <!----------------Head Section Start---------------------->
+    <head>
+        <title>HOME</title>
+
+        <style>
+            /* Force scrollbars onto browser window */
+            /* Box styles */
+            .myBox {
+            {% comment %}border: none;{% endcomment %} padding: 5px;
+                font: 16px/36px sans-serif;
+            {% comment %}width: 730px;{% endcomment %} height: 270px;
+                overflow-y: scroll;
+            {% comment %}text-align: center;{% endcomment %} margin-right: 100px;
+            }
+
+            #singleform {
+                color: black;
+                margin-left: 150px;
+                font-style: normal;
+                margin-top: 30px;
+                font-size: medium;
+
+            }
+
+            #titleli {
+                font-weight: bolder;
+                margin-left: 30px;
+            }
+
+            {% comment %}#singleform li {
+                text-align: center;
+            }{% endcomment %}
+
+            /* Scrollbar styles */
+            ::-webkit-scrollbar {
+                width: 12px;
+                height: 12px;
+            }
+
+            ::-webkit-scrollbar-track {
+                border-radius: 20px;
+                width: 2px;
+                border: 1px dotted pink;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: pink;
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: hotpink;
+            }
+
+            #index {
+                color: hotpink;
+                font-size: large;
+                font-weight: bolder;
+                font-style: italic;
+                font-family: Helvetica, Tahoma, Arial;
+            }
+        </style>
+
+    </head>
+    <!----------------Head Section End---------------------->
+
+    <!----------------Body Section Start---------------------->
+
+    <section class="contact_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 m-t-50">
+                    <h1 class="underline heading"><b>HOME</b></h1>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <div class="container">
+        <div class="container1">
+            <div class="container1_1">
+                <div class="leftcontent"><h2>Announcement</h2></div>
+                <div class="myBox">
+                    {% if acmtlist %}
+                        {% for obj in acmtlist %}
+                            <br>
+                            <ul id="singleform">
+                                <li id="titleli">Title: {{ obj.title }}</li>
+                                <li>Author: {{ obj.author }}</li>
+                                <li>Description: {{ obj.description }}</li>
+                                <li>Date: {{ obj.date }}</li>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <br>
+                        <div style="font-size: larger;text-align: center;">There are no announcement!</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tp-header" id="tp-header"></div>
+
+    <div class="container">
+        <div class="container1">
+            <div class="container1_1">
+                <div class="leftcontent"><h2>Requirement</h2></div>
+                {% comment %}<div class="rightcontent">{% endcomment %}
+                <div class="myBox">
+                    {% if remtlist %}
+                        {% for obj in remtlist %}
+                            <br>
+                            <ul id="singleform">
+                                <li id="titleli">Title: {{ obj.title }}</li>
+                                <li>Costumer: {{ obj.customer }}</li>
+                                <li>Project: {{ obj.project }}</li>
+                                <li>Description: {{ obj.description }}</li>
+                                <li>Date: {{ obj.date }}</li>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <br>
+                        <div style="margin-top:83px; font-size: larger;">You have not been participated in any
+                            project!
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="return-to-top"><img src="../../static/myapp/images/backto.png" alt="image-missing"></a>
+    <!----------------Body Section End---------------------->
+{% endblock %}
